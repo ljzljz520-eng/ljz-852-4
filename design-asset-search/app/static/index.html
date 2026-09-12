@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>设计素材元数据搜索</title>
+<style>
+  :root { --c:#4f46e5; --bg:#f6f7fb; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif; background:var(--bg); color:#1f2937; }
+  header { background:var(--c); color:#fff; padding:18px 24px; }
+  header h1 { margin:0; font-size:20px; }
+  main { max-width:960px; margin:24px auto; padding:0 16px; }
+  .bar { display:flex; gap:8px; flex-wrap:wrap; }
+  input, select { padding:10px 12px; border:1px solid #d1d5db; border-radius:8px; font-size:15px; }
+  input { flex:1; min-width:220px; }
+  button { padding:10px 20px; background:var(--c); color:#fff; border:0; border-radius:8px; cursor:pointer; font-size:15px; }
+  .meta { color:#6b7280; font-size:13px; margin:12px 0; }
+  .card { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:14px 16px; margin-bottom:12px; cursor:pointer; }
+  .card:hover { border-color:var(--c); }
+  .card h3 { margin:0 0 6px; font-size:16px; }
+  .tag { display:inline-block; background:#eef2ff; color:#4338ca; border-radius:12px; padding:2px 10px; font-size:12px; margin:2px 4px 2px 0; }
+  .kv { color:#6b7280; font-size:13px; }
+  #detail { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:18px; margin-top:16px; display:none; }
+  pre { background:#0f172a; color:#e2e8f0; padding:12px; border-radius:8px; overflow:auto; font-size:13px; }
+  .sim { cursor:pointer; }
+</style>
+</head>
+<body>
+<header><h1>🎨 设计素材元数据搜索</h1></header>
+<main>
+  <div class="bar">
+    <input id="q" placeholder="输入关键词：海报 / 字体 / 图标 / 模板 …" autofocus>
+    <select id="cat">
+      <option value="">全部分类</option>
+      <option value="poster">海报</option>
+      <option value="font">字体</option>
+      <option value="icon">图标</option>
+      <option value="template">模板</option>
+    </select>
+    <button onclick="doSearch()">搜索</button>
+  </div>
+  <div class="meta" id="meta"></div>
+  <div id="results"></div>
+  <div id="detail"></div>
+</main>
+<script>
+const fmtSize = b => b >= 1048576 ? (b/1048576).toFixed(1)+' MB' : (b/1024).toFixed(1)+' KB';
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+async function doSearch() {
+  const q = document.getElementById('q').value;
+  const cat = document.getElementById('cat').value;
+  const r = await fetch(`/api/search?q=${encodeURIComponent(q)}&category=${cat}`);
+  const d = await r.json();
+  document.getElementById('meta').textContent = `共 ${d.total} 条结果`;
+  document.getElementById('detail').style.display = 'none';
+  document.getElementById('results').innerHTML = d.items.map(a => `
+    <div class="card" onclick="showDetail('${a.slug}')">
+      <h3>${esc(a.title)} <span class="kv">[${a.category}]</span></h3>
+      <div>${a.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+      <div class="kv">格式 ${esc(a.format)} ｜ 大小 ${fmtSize(a.size_bytes)} ｜ 更新 ${a.updated_at}</div>
+    </div>`).join('') || '<p class="meta">无结果</p>';
+}
+
+async function showDetail(slug) {
+  const r = await fetch(`/api/assets/${slug}`);
+  if (!r.ok) return;
+  const a = await r.json();
+  const el = document.getElementById('detail');
+  el.style.display = 'block';
+  el.innerHTML = `
+    <h2>${esc(a.title)}</h2>
+    <p class="kv">分类 ${a.category} ｜ 格式 ${esc(a.format)} ｜ 大小 ${fmtSize(a.size_bytes)} ｜ 许可 ${esc(a.license)} ｜ 更新 ${a.updated_at}</p>
+    <p>${a.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</p>
+    ${a.source_url ? `<p class="kv">来源：<a href="${esc(a.source_url)}" target="_blank">${esc(a.source_url)}</a></p>` : ''}
+    <h4>资源结构</h4>
+    <pre>${esc(JSON.stringify(a.structure, null, 2))}</pre>
+    <h4>相近标签</h4>
+    <p>${a.similar_tags.map(s => `<span class="tag sim" onclick="event.stopPropagation();searchTag('${esc(s.tag)}')">${esc(s.tag)} (${s.co_count})</span>`).join('') || '无'}</p>`;
+  el.scrollIntoView({behavior:'smooth'});
+}
+
+function searchTag(t) { document.getElementById('q').value = t; doSearch(); }
+document.getElementById('q').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+doSearch();
+</script>
+</body>
+</html>
