@@ -7,7 +7,7 @@
     "format": "PSD",
     "size_bytes": 48234496,
     "license": "CC0",
-    "source_url": "https://example.org/assets/poster-summer-music-festival",
+    "source_url": "https://commons.wikimedia.org/wiki/Category:Concert_posters",
     "structure": [
       {"path": "poster.psd", "type": "file", "layers": ["背景渐变", "标题文字", "人物插画", "光效", "LOGO"]},
       {"path": "fonts/", "type": "dir", "children": ["README.txt"]},
@@ -23,7 +23,7 @@
     "format": "AI",
     "size_bytes": 12582912,
     "license": "CC-BY",
-    "source_url": "https://example.org/assets/poster-minimal-product-launch",
+    "source_url": "https://commons.wikimedia.org/wiki/Category:Commercial_art",
     "structure": [
       {"path": "launch.ai", "type": "file", "artboards": ["主视觉", "竖版", "横版"]},
       {"path": "assets/", "type": "dir", "children": ["product-mockup.png", "grid.pdf"]}
@@ -38,7 +38,7 @@
     "format": "TTF",
     "size_bytes": 8388608,
     "license": "OFL",
-    "source_url": "https://example.org/assets/font-huakang-round",
+    "source_url": "https://fonts.google.com/specimen/Ma+Shan+Zheng",
     "structure": [
       {"path": "Round-Regular.ttf", "type": "file", "glyphs": 6763},
       {"path": "Round-Bold.ttf", "type": "file", "glyphs": 6763},
@@ -54,7 +54,7 @@
     "format": "OTF",
     "size_bytes": 2097152,
     "license": "OFL",
-    "source_url": "https://example.org/assets/font-geometric-sans",
+    "source_url": "https://fonts.google.com/specimen/Poppins",
     "structure": [
       {"path": "GeoSans-Light.otf", "type": "file"},
       {"path": "GeoSans-Regular.otf", "type": "file"},
@@ -71,7 +71,7 @@
     "format": "SVG",
     "size_bytes": 3145728,
     "license": "CC0",
-    "source_url": "https://example.org/assets/icon-line-essential-200",
+    "source_url": "https://github.com/feathericons/feather",
     "structure": [
       {"path": "svg/", "type": "dir", "children": ["arrow/", "file/", "user/", "device/"], "count": 200},
       {"path": "sprite.svg", "type": "file"},
@@ -86,8 +86,8 @@
     "tags": ["图标", "3D", "商务", "插画", "立体"],
     "format": "PNG",
     "size_bytes": 104857600,
-    "license": "CC-BY",
-    "source_url": "https://example.org/assets/icon-3d-business-pack",
+    "license": "CC0",
+    "source_url": "https://github.com/tabler/tabler",
     "structure": [
       {"path": "png/1x/", "type": "dir", "count": 60},
       {"path": "png/2x/", "type": "dir", "count": 60},
@@ -103,7 +103,7 @@
     "format": "Figma",
     "size_bytes": 62914560,
     "license": "CC0",
-    "source_url": "https://example.org/assets/template-dashboard-admin",
+    "source_url": "https://github.com/topics/admin-dashboard",
     "structure": [
       {"path": "pages/", "type": "dir", "children": ["登录", "总览", "表格", "图表", "设置"]},
       {"path": "components/", "type": "dir", "children": ["按钮", "卡片", "导航", "表单"]},
@@ -119,7 +119,7 @@
     "format": "Sketch",
     "size_bytes": 89128960,
     "license": "CC-BY-SA",
-    "source_url": "https://example.org/assets/template-mobile-shopping-app",
+    "source_url": "https://github.com/topics/ecommerce-app",
     "structure": [
       {"path": "screens/", "type": "dir", "children": ["首页", "分类", "商品详情", "购物车", "结算"]},
       {"path": "symbols/", "type": "dir"},
@@ -135,7 +135,7 @@
     "format": "PSD",
     "size_bytes": 35651584,
     "license": "CC0",
-    "source_url": "https://example.org/assets/poster-vintage-travel",
+    "source_url": "https://commons.wikimedia.org/wiki/Category:Travel_posters",
     "structure": [
       {"path": "travel.psd", "type": "file", "layers": ["纸张纹理", "插画主体", "排版文字", "做旧滤镜"]}
     ],
@@ -148,8 +148,8 @@
     "tags": ["图标", "表情", "扁平", "彩色", "可爱"],
     "format": "SVG",
     "size_bytes": 1572864,
-    "license": "CC0",
-    "source_url": "https://example.org/assets/icon-emoji-flat-color",
+    "license": "CC-BY",
+    "source_url": "https://github.com/googlefonts/noto-emoji",
     "structure": [
       {"path": "svg/", "type": "dir", "count": 120},
       {"path": "preview-sheet.png", "type": "file"}
